@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        .lamp-green-on {
+            background: #00FA15;
+            border: 1px solid #2D292E;
+            border-radius: 40px;
+            height: 20px;
+            margin: 20px;
+            width: 20px;
+        }
+        .lamp-green-off {
+            background: #528B53;
+            border: 1px solid #2D292E;
+            border-radius: 40px;
+            height: 20px;
+            margin: 20px;
+            width: 20px;
+        }
+        .lamp-red-on {
+            background: red;
+            border: 1px solid #2D292E;
+            border-radius: 40px;
+            height: 20px;
+            margin: 20px;
+            width: 20px;
+        }
+        .lamp-red-off {
+            background: #790604;
+            border: 1px solid #2D292E;
+            border-radius: 40px;
+            height: 20px;
+            margin: 20px;
+            width: 20px;
+        }
+    </style>
+</head>
+<body>
+<form th:method="POST" th:action="@{/people}" th:object="${person1}" >
+    <select th:field="*{tgID}">
+        <option  th:value="${person.tgID}" th:each="person : ${people}" th:text="${person.getLastName()}+' '+${person.getFirstName()}+' '+${person.getSecondName()}+' '+${person.getTgID()}" ></option>
+    </select>
+    <input type="submit" value="submit" id="btnOff" />
+</form>
+<div class="lamp-red-off" id="lamp1" ></div>
+<div class="lamp-green-off" id="lamp2" ></div>
+<script th:inline="javascript">
+    var div1 = document.getElementById('lamp1');
+    var div2 = document.getElementById('lamp2');
+    var message = [[${color}]];
+    if(message=="Красный"){
+        div1.classList.toggle('lamp-red-off');
+        div1.classList.toggle('lamp-red-on');
+    } else if (message == "Зеленый"){
+        div2.classList.toggle('lamp-green-off');
+        div2.classList.toggle('lamp-green-on');
+    }
+    setTimeout(function (){
+        location.reload();
+    },5000);
+</script>
+</body>
+</html>
